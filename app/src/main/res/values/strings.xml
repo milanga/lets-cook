@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Recipes</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="settings">Settings</string>
+    <string name="food">Recipes</string>
+    <string name="mail">torrecillagustavo@gmail.com</string>
+    <string name="user_name">Gustavo Torrecilla</string>
+    <string name="failure_error">Something wrong. Check your internet connection and try again</string>
+    <string name="api_error">There was a problem. \nTry again later</string>
+    <string name="internet_error">There was a problem with the internet connection</string>
+    <string name="favorites">Favorites</string>
+</resources>
