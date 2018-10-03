@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<slide
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:slideEdge="start"
-    android:duration="300"
-    android:interpolator="@android:interpolator/linear_out_slow_in">
-    <targets>
-        <target android:excludeId="@+id/toolbar" />
-        <target android:excludeId="@android:id/navigationBarBackground" />
-        <target android:excludeId="@android:id/statusBarBackground" />
-    </targets>
-</slide>
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:transitionOrdering="together">
+    <slide
+        android:duration="200"
+        android:slideEdge="top">
+        <targets>
+            <target android:targetId="@+id/toolbar"/>
+        </targets>
+    </slide>
+
+        <slide
+            android:interpolator="@android:interpolator/decelerate_quint"
+            android:slideEdge="top"
+            android:startDelay="100"
+            android:duration="400">
+            <targets>
+                <target android:excludeId="@+id/toolbar"/>
+                <target android:excludeId="@android:id/navigationBarBackground" />
+                <target android:excludeId="@android:id/statusBarBackground" />
+            </targets>
+        </slide>
+        <fade android:duration="400"
+            android:startDelay="100"
+            android:interpolator="@android:interpolator/accelerate_quad">
+            <targets>
+                <target android:excludeId="@+id/toolbar"/>
+                <target android:excludeId="@android:id/navigationBarBackground" />
+                <target android:excludeId="@android:id/statusBarBackground" />
+            </targets>
+        </fade>
+</transitionSet>
