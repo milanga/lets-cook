@@ -3,9 +3,7 @@ package com.example.gustavo.demoapp.foodList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -15,14 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.example.gustavo.demoapp.FoodDetailActivity;
 import com.example.gustavo.demoapp.R;
-import com.example.gustavo.demoapp.glide.GlideApp;
 import com.example.gustavo.demoapp.views.CheckableImageView;
 import com.squareup.picasso.Picasso;
 
@@ -32,7 +24,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Created by gustavo on 04/04/18.
@@ -98,7 +89,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     }
 
     private void initializeImage(@NonNull ViewHolder viewHolder, Food food) {
-        Picasso.with(viewHolder.itemView.getContext())
+        Picasso.get()
                 .load(food.getImageUrl())
                 .into(viewHolder.imageView);
     }

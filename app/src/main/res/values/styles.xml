@@ -17,23 +17,24 @@
 
         <!-- specify enter and exit transitions -->
         <!-- options are: explode, slide, fade -->
-        <!--<item name="android:windowEnterTransition">@transition/prueba</item>-->
-        <!--<item name="android:windowExitTransition">@transition/prueba</item>-->
+        <!--<item name="android:windowEnterTransition">@transition/shared_transition</item>-->
+        <!--<item name="android:windowExitTransition">@transition/shared_transition</item>-->
 
         <!--&lt;!&ndash; specify shared element transitions &ndash;&gt;-->
         <!--<item name="android:windowSharedElementEnterTransition">-->
-            <!--@transition/prueba</item>-->
+            <!--@transition/shared_transition</item>-->
         <!--<item name="android:windowSharedElementExitTransition">-->
-            <!--@transition/prueba</item>-->
+            <!--@transition/shared_transition</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar.Details">
-        <item name="android:windowSharedElementEnterTransition">@transition/prueba</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/shared_transition</item>
+        <!--<item name="android:windowEnterTransition">@transition/list_reenter</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar.Home">
-        <item name="android:windowExitTransition">@transition/grid_exit</item>
-        <item name="android:windowReenterTransition">@transition/grid_reenter</item>
+        <item name="android:windowExitTransition">@transition/list_exit</item>
+        <item name="android:windowReenterTransition">@transition/list_reenter</item>
     </style>
 
 

@@ -13,9 +13,9 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.bumptech.glide.request.RequestOptions;
 import com.example.gustavo.demoapp.foodList.FoodListFragment;
-import com.example.gustavo.demoapp.glide.GlideApp;
+import com.example.gustavo.demoapp.picasso.CircleTransform;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
     private void initializeNavView() {
         ImageView profileImage = navigationView.getHeaderView(0).findViewById(R.id.profileImage);
 
-        GlideApp.with(getBaseContext())
-                .load("https://media.licdn.com/dms/image/C5103AQEqvc9TXT_RnQ/profile-displayphoto-shrink_200_200/0?e=1528257600&v=beta&t=CzPyDb8_5NnNkgU8TLgVXIGF18HNxGm2fKtiAcrRK-o")
-                .apply(RequestOptions.circleCropTransform())
+        Picasso.get()
+                .load("https://media.licdn.com/dms/image/C5103AQEqvc9TXT_RnQ/profile-displayphoto-shrink_200_200/0?e=1544054400&v=beta&t=tiORi4N4WaA57HrvGWk3ADv3Wtw1bPEpHaAAI4IFIpw")
+                .transform(new CircleTransform())
                 .into(profileImage);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

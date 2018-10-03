@@ -1,6 +1,5 @@
 package com.example.gustavo.demoapp;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.example.gustavo.demoapp.foodList.Food;
-import com.example.gustavo.demoapp.glide.GlideApp;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -44,7 +38,7 @@ public class FoodDetailActivity extends AppCompatActivity{
             food = Parcels.unwrap(getIntent().getParcelableExtra(Food.FOOD_KEY));
         }
 
-        Picasso.with(this)
+        Picasso.get()
                 .load(food.getImageUrl())
                 .into(foodImage);
     }
