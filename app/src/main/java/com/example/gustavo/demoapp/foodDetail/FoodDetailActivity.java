@@ -1,4 +1,4 @@
-package com.example.gustavo.demoapp;
+package com.example.gustavo.demoapp.foodDetail;
 
 import android.animation.Animator;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
 
+import com.example.gustavo.demoapp.R;
 import com.example.gustavo.demoapp.foodList.Food;
 import com.squareup.picasso.Picasso;
 

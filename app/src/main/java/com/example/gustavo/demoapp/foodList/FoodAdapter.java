@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.gustavo.demoapp.FoodDetailActivity;
+import com.example.gustavo.demoapp.foodDetail.FoodDetailActivity;
 import com.example.gustavo.demoapp.R;
 import com.example.gustavo.demoapp.views.CheckableImageView;
 import com.squareup.picasso.Picasso;
@@ -84,6 +84,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation(activity, viewHolder.imageView, "image");
                 view.getContext().startActivity(intent, options.toBundle());
+//                todo remove clicked view from transition and add picasso listeners to avoid weird blik
+                //todo animate the gray bar and transition text
             }
         });
     }

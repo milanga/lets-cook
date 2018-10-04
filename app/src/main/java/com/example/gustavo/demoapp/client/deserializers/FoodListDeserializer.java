@@ -11,13 +11,14 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class FoodListDeserializer implements JsonDeserializer<List<Food>> {
 
     @Override
     public List<Food> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        //list to populate
         ArrayList<Food> foodList = new ArrayList<>();
+
         JsonArray foodJsonArray = json.getAsJsonObject().get("documents").getAsJsonArray();
         for (JsonElement jsonFood: foodJsonArray){
             //obtain fields jsonObject
@@ -25,6 +26,7 @@ public class FoodListDeserializer implements JsonDeserializer<List<Food>> {
 
             //obtain Food fields
             String id = jsonFood.getAsJsonObject().get("name").getAsString();
+            id = id.substring(id.lastIndexOf('/')+1);
             String name = fields.get("name").getAsJsonObject().get("stringValue").getAsString();
             String imageUrl = fields.get("imageUrl").getAsJsonObject().get("stringValue").getAsString();
 
