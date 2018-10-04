@@ -6,9 +6,11 @@
             <target android:excludeId="@+id/toolbar" />
         </targets>
     </fade>
-    <explode>
+    <slide
+        android:duration="200"
+        android:slideEdge="top">
         <targets>
             <target android:targetId="@+id/toolbar"/>
         </targets>
-    </explode>
+    </slide>
 </transitionSet>
