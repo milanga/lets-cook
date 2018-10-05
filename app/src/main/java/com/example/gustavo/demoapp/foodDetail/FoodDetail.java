@@ -1,14 +1,20 @@
 package com.example.gustavo.demoapp.foodDetail;
 
+import org.parceler.Parcel;
+
 import java.util.HashMap;
 import java.util.List;
 
+@Parcel
 public class FoodDetail {
-    private String name;
-    private String imageUrl;
-    private List<String> directions;
-    private HashMap<String,String> nutrition;
-    private List<String> ingredients;
+    String name;
+    String imageUrl;
+    List<String> directions;
+    HashMap<String,String> nutrition;
+    List<String> ingredients;
+
+    public FoodDetail() {
+    }
 
     public FoodDetail(String name, String imageUrl, List<String> ingredients, List<String> directions, HashMap<String,String> nutrition) {
         this.name = name;

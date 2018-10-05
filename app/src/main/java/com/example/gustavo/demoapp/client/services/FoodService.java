@@ -1,15 +1,17 @@
 package com.example.gustavo.demoapp.client.services;
 
+import com.example.gustavo.demoapp.foodDetail.FoodDetail;
 import com.example.gustavo.demoapp.foodList.Food;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface FoodService {
     @GET("food?fields=documents(fields%2Cname)")
     Call<List<Food>> obtainFoodList();
-    @GET("/food/{foodId}/detail?fields=documents(fields%2Cname)")
-    Call<Food> obtainFoodDetail(String foodId);
+    @GET("food/{foodId}/detail?fields=documents(fields%2Cname)")
+    Call<FoodDetail> obtainFoodDetail(@Path("foodId") String foodId);
 }

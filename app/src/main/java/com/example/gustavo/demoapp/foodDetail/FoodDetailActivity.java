@@ -2,6 +2,7 @@ package com.example.gustavo.demoapp.foodDetail;
 
 import android.animation.Animator;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,10 @@ import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
 
 import com.example.gustavo.demoapp.R;
+import com.example.gustavo.demoapp.foodDetail.presenter.FoodDetailContract;
+import com.example.gustavo.demoapp.foodDetail.presenter.FoodDetailPresenter;
 import com.example.gustavo.demoapp.foodList.Food;
+import com.example.gustavo.demoapp.foodList.presenter.FoodListPresenter;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -21,7 +25,7 @@ import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FoodDetailActivity extends AppCompatActivity{
+public class FoodDetailActivity extends AppCompatActivity implements FoodDetailContract.View{
 
     @BindView(R.id.foodImage)
     ImageView foodImage;
@@ -31,9 +35,19 @@ public class FoodDetailActivity extends AppCompatActivity{
     FloatingActionButton favorite;
 
     //used to add circular enter animation
-    private Transition.TransitionListener mEnterTransitionListener;
+    private Transition.TransitionListener enterTransitionListener;
+
+    private final String PRESENTER_KEY = "presenter_key";
 
     private Food food;
+    private FoodDetailPresenter foodDetailPresenter;
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(PRESENTER_KEY, Parcels.wrap(foodDetailPresenter));
+        outState.putParcelable(Food.FOOD_KEY, Parcels.wrap(food));
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,11 +63,23 @@ public class FoodDetailActivity extends AppCompatActivity{
 
         if (savedInstanceState==null) {
             food = Parcels.unwrap(getIntent().getParcelableExtra(Food.FOOD_KEY));
+            foodDetailPresenter = new FoodDetailPresenter(food.getId());
+            foodDetailPresenter.attach(this);
+        }else{
+            food = Parcels.unwrap(savedInstanceState.getParcelable(Food.FOOD_KEY));
+            foodDetailPresenter = Parcels.unwrap(savedInstanceState.getParcelable(PRESENTER_KEY));
+            foodDetailPresenter.attach(this);
+            favorite.setVisibility(View.VISIBLE);
         }
+        foodDetailPresenter.start();
 
         Picasso.get()
                 .load(food.getImageUrl())
                 .into(foodImage);
+
+        getSupportActionBar().setTitle(food.getName());
+
+
     }
 
 
@@ -72,9 +98,38 @@ public class FoodDetailActivity extends AppCompatActivity{
         exitAnimation();
     }
 
-    // animatinos
+
+    //view contract
+
+    @Override
+    public void startLoading() {
+
+    }
+
+    @Override
+    public void stopLoading() {
+
+    }
+
+    @Override
+    public void showConnectionError() {
+
+    }
+
+    @Override
+    public void showFoodDetail(FoodDetail foodDetail) {
+
+    }
+
+    @Override
+    public void showApiError() {
+
+    }
+
+
+    // animations
     private void addEnterAnimation() {
-        mEnterTransitionListener = new Transition.TransitionListener() {
+        enterTransitionListener = new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(Transition transition) {
 
@@ -100,7 +155,7 @@ public class FoodDetailActivity extends AppCompatActivity{
 
             }
         };
-        getWindow().getEnterTransition().addListener(mEnterTransitionListener);
+        getWindow().getEnterTransition().addListener(enterTransitionListener);
     }
 
     private void enterAnimation() {
@@ -121,7 +176,7 @@ public class FoodDetailActivity extends AppCompatActivity{
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                getWindow().getEnterTransition().removeListener(mEnterTransitionListener);
+                getWindow().getEnterTransition().removeListener(enterTransitionListener);
             }
 
             @Override
@@ -161,4 +216,5 @@ public class FoodDetailActivity extends AppCompatActivity{
             }
         }).start();
     }
+
 }

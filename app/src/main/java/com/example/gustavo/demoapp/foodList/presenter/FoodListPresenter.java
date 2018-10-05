@@ -17,7 +17,7 @@ import retrofit2.Response;
 public class FoodListPresenter implements FoodListContract.Presenter{
     @Transient
     private FoodListContract.View foodListContract;
-    private List<Food> foodList;
+    List<Food> foodList;
 
     public FoodListPresenter(){}
 

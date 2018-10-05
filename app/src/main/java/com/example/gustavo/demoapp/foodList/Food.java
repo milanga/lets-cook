@@ -12,10 +12,10 @@ import java.util.List;
 @Parcel
 public class Food {
 
-    private String name;
-    private String imageUrl;
-    private String id;
-    private boolean favorite;
+    String name;
+    String imageUrl;
+    String id;
+    boolean favorite;
 
     public static String FOOD_KEY = "food_key";
 

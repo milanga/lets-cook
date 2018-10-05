@@ -1,6 +1,8 @@
 package com.example.gustavo.demoapp.client;
 
+import com.example.gustavo.demoapp.client.deserializers.FoodDetailDeserializer;
 import com.example.gustavo.demoapp.client.deserializers.FoodListDeserializer;
+import com.example.gustavo.demoapp.foodDetail.FoodDetail;
 import com.example.gustavo.demoapp.foodList.Food;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,6 +37,7 @@ public class ServiceGenerator {
     private static Gson gson(){
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(new TypeToken<List<Food>>(){}.getType(), new FoodListDeserializer());
+        gsonBuilder.registerTypeAdapter(new TypeToken<FoodDetail>(){}.getType(), new FoodDetailDeserializer());
 
         return gsonBuilder.create();
     }
