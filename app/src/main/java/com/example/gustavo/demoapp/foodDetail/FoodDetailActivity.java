@@ -1,24 +1,29 @@
 package com.example.gustavo.demoapp.foodDetail;
 
 import android.animation.Animator;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.example.gustavo.demoapp.R;
 import com.example.gustavo.demoapp.foodDetail.presenter.FoodDetailContract;
 import com.example.gustavo.demoapp.foodDetail.presenter.FoodDetailPresenter;
 import com.example.gustavo.demoapp.foodList.Food;
-import com.example.gustavo.demoapp.foodList.presenter.FoodListPresenter;
-import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -54,13 +59,16 @@ public class FoodDetailActivity extends AppCompatActivity implements FoodDetailC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_detail);
         ButterKnife.bind(this);
-
-        addEnterAnimation();
-
+        //postpone the enter transition till glide load the image
+        supportPostponeEnterTransition();
+        //add listener to know when the transition end
+        addTransitionListener();
+        //initialize actionbar
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //initialize
         if (savedInstanceState==null) {
             food = Parcels.unwrap(getIntent().getParcelableExtra(Food.FOOD_KEY));
             foodDetailPresenter = new FoodDetailPresenter(food.getId());
@@ -71,23 +79,38 @@ public class FoodDetailActivity extends AppCompatActivity implements FoodDetailC
             foodDetailPresenter.attach(this);
             favorite.setVisibility(View.VISIBLE);
         }
-        foodDetailPresenter.start();
 
-        Picasso.get()
-                .load(food.getImageUrl())
-                .into(foodImage);
-
+        loadImage(true);
         getSupportActionBar().setTitle(food.getName());
-
-
+        foodDetailPresenter.start();
     }
 
+    private void loadImage(boolean onlyRetrieveFromCache) {
+        Glide.with(this)
+                .load(food.getImageUrl())
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        supportStartPostponedEnterTransition();
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        supportStartPostponedEnterTransition();
+                        return false;
+                    }
+                })
+                .apply(new RequestOptions().dontTransform()
+                        .onlyRetrieveFromCache(onlyRetrieveFromCache))
+                .into(foodImage);
+    }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==android.R.id.home){
-            exitAnimation();
+            finishWithAnimation();
             return true;
         }
         return false;
@@ -95,7 +118,7 @@ public class FoodDetailActivity extends AppCompatActivity implements FoodDetailC
 
     @Override
     public void onBackPressed() {
-        exitAnimation();
+        finishWithAnimation();
     }
 
 
@@ -128,7 +151,7 @@ public class FoodDetailActivity extends AppCompatActivity implements FoodDetailC
 
 
     // animations
-    private void addEnterAnimation() {
+    private void addTransitionListener() {
         enterTransitionListener = new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(Transition transition) {
@@ -137,6 +160,8 @@ public class FoodDetailActivity extends AppCompatActivity implements FoodDetailC
 
             @Override
             public void onTransitionEnd(Transition transition) {
+                if (foodImage.getDrawable()==null)
+                    loadImage(false);
                 enterAnimation();
             }
 
@@ -192,7 +217,7 @@ public class FoodDetailActivity extends AppCompatActivity implements FoodDetailC
         anim.start();
     }
 
-    private void exitAnimation() {
+    private void finishWithAnimation() {
         favorite.animate().alpha(0).setDuration(100).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {

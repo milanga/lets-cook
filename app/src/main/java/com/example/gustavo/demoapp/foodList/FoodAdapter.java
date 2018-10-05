@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,10 +14,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.gustavo.demoapp.foodDetail.FoodDetailActivity;
+import com.bumptech.glide.Glide;
 import com.example.gustavo.demoapp.R;
+import com.example.gustavo.demoapp.foodDetail.FoodDetailActivity;
 import com.example.gustavo.demoapp.views.CheckableImageView;
-import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -41,6 +42,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         CardView cardView;
         @BindView(R.id.favorite)
         CheckableImageView checkBox;
+        @BindView(R.id.degrade)
+        View degrade;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -81,17 +84,22 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), FoodDetailActivity.class);
                 intent.putExtra(Food.FOOD_KEY, Parcels.wrap(food));
+
+                Pair<View, String> p1 = Pair.create((View)viewHolder.imageView, "image");
+                Pair<View, String> p2 = Pair.create(viewHolder.degrade, "degrade");
+
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(activity, viewHolder.imageView, "image");
+                        makeSceneTransitionAnimation(activity, p1, p2);
+
                 view.getContext().startActivity(intent, options.toBundle());
-//                todo remove clicked view from transition and add picasso listeners to avoid weird blik
+//                todo remove clicked view from transition
                 //todo animate the gray bar and transition text
             }
         });
     }
 
     private void initializeImage(@NonNull ViewHolder viewHolder, Food food) {
-        Picasso.get()
+        Glide.with(activity)
                 .load(food.getImageUrl())
                 .into(viewHolder.imageView);
     }

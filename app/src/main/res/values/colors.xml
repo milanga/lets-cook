@@ -4,7 +4,10 @@
     <color name="colorPrimaryDark">#560027</color>
     <color name="colorPrimaryLight">#bc477b</color>
     <color name="colorAccent">#e30425</color>
-    <color name="colorPrimaryLightTransparent">#80000000</color>
+
+    <color name="blackMediumOpacity">#99000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="blackHighOpacity">#D9000000</color>
 
 
     <color name="gray">#9E9E9E</color>
