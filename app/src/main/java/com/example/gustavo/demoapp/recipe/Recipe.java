@@ -1,4 +1,4 @@
-package com.example.gustavo.demoapp.foodDetail;
+package com.example.gustavo.demoapp.recipe;
 
 import org.parceler.Parcel;
 
@@ -6,17 +6,17 @@ import java.util.HashMap;
 import java.util.List;
 
 @Parcel
-public class FoodDetail {
+public class Recipe {
     String name;
     String imageUrl;
     List<String> directions;
     HashMap<String,String> nutrition;
     List<String> ingredients;
 
-    public FoodDetail() {
+    public Recipe() {
     }
 
-    public FoodDetail(String name, String imageUrl, List<String> ingredients, List<String> directions, HashMap<String,String> nutrition) {
+    public Recipe(String name, String imageUrl, List<String> ingredients, List<String> directions, HashMap<String,String> nutrition) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.ingredients = ingredients;

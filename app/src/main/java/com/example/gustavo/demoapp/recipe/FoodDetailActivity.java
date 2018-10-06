@@ -1,4 +1,4 @@
-package com.example.gustavo.demoapp.foodDetail;
+package com.example.gustavo.demoapp.recipe;
 
 import android.animation.Animator;
 import android.graphics.drawable.Drawable;
@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -21,8 +20,8 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.gustavo.demoapp.R;
-import com.example.gustavo.demoapp.foodDetail.presenter.FoodDetailContract;
-import com.example.gustavo.demoapp.foodDetail.presenter.FoodDetailPresenter;
+import com.example.gustavo.demoapp.recipe.presenter.FoodDetailContract;
+import com.example.gustavo.demoapp.recipe.presenter.FoodDetailPresenter;
 import com.example.gustavo.demoapp.foodList.Food;
 
 import org.parceler.Parcels;
@@ -140,7 +139,7 @@ public class FoodDetailActivity extends AppCompatActivity implements FoodDetailC
     }
 
     @Override
-    public void showFoodDetail(FoodDetail foodDetail) {
+    public void showFoodDetail(Recipe recipe) {
 
     }
 

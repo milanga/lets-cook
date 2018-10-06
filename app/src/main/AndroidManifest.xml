@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".foodDetail.FoodDetailActivity"
+        <activity android:name=".recipe.FoodDetailActivity"
             android:theme="@style/AppTheme.NoActionBar.Details"/>
     </application>
 

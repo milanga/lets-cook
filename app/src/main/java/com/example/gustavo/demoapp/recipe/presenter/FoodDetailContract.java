@@ -1,6 +1,6 @@
-package com.example.gustavo.demoapp.foodDetail.presenter;
+package com.example.gustavo.demoapp.recipe.presenter;
 
-import com.example.gustavo.demoapp.foodDetail.FoodDetail;
+import com.example.gustavo.demoapp.recipe.Recipe;
 
 public interface FoodDetailContract {
     interface View {
@@ -10,7 +10,7 @@ public interface FoodDetailContract {
 
         void showConnectionError();
 
-        void showFoodDetail(FoodDetail foodDetail);
+        void showFoodDetail(Recipe recipe);
 
         void showApiError();
     }

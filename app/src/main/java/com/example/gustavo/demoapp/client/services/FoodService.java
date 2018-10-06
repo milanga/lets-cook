@@ -1,6 +1,6 @@
 package com.example.gustavo.demoapp.client.services;
 
-import com.example.gustavo.demoapp.foodDetail.FoodDetail;
+import com.example.gustavo.demoapp.recipe.Recipe;
 import com.example.gustavo.demoapp.foodList.Food;
 
 import java.util.List;
@@ -13,5 +13,5 @@ public interface FoodService {
     @GET("food?fields=documents(fields%2Cname)")
     Call<List<Food>> obtainFoodList();
     @GET("food/{foodId}/detail?fields=documents(fields%2Cname)")
-    Call<FoodDetail> obtainFoodDetail(@Path("foodId") String foodId);
+    Call<Recipe> obtainFoodDetail(@Path("foodId") String foodId);
 }

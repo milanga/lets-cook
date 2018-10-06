@@ -1,6 +1,6 @@
 package com.example.gustavo.demoapp.client.deserializers;
 
-import com.example.gustavo.demoapp.foodDetail.FoodDetail;
+import com.example.gustavo.demoapp.recipe.Recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FoodDetailDeserializer implements JsonDeserializer<FoodDetail> {
+public class FoodDetailDeserializer implements JsonDeserializer<Recipe> {
     @Override
-    public FoodDetail deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Recipe deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
         JsonObject foodDetailJson = json.getAsJsonObject().get("documents").getAsJsonArray().get(0).getAsJsonObject();
         JsonObject foodDetailFields = foodDetailJson.get("fields").getAsJsonObject();
@@ -30,7 +30,7 @@ public class FoodDetailDeserializer implements JsonDeserializer<FoodDetail> {
 
         HashMap<String,String> nutrition = obtainNutrition(foodDetailFields);
 
-        return new FoodDetail(name, imageUrl, ingredients, directions, nutrition);
+        return new Recipe(name, imageUrl, ingredients, directions, nutrition);
     }
 
     private HashMap<String, String> obtainNutrition(JsonObject foodDetailFields) {

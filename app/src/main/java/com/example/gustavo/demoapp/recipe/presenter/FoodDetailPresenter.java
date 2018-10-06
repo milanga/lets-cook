@@ -1,8 +1,8 @@
-package com.example.gustavo.demoapp.foodDetail.presenter;
+package com.example.gustavo.demoapp.recipe.presenter;
 
 import com.example.gustavo.demoapp.client.ServiceGenerator;
 import com.example.gustavo.demoapp.client.services.FoodService;
-import com.example.gustavo.demoapp.foodDetail.FoodDetail;
+import com.example.gustavo.demoapp.recipe.Recipe;
 
 import org.parceler.Parcel;
 import org.parceler.Transient;
@@ -15,7 +15,7 @@ import retrofit2.Response;
 public class FoodDetailPresenter implements FoodDetailContract.Presenter{
     @Transient
     private FoodDetailContract.View foodDetailContract;
-    FoodDetail foodDetail;
+    Recipe recipe;
     String foodId;
 
     //only for parcel
@@ -31,8 +31,8 @@ public class FoodDetailPresenter implements FoodDetailContract.Presenter{
     }
 
     public void start(){
-        if (foodDetail!=null){
-            foodDetailContract.showFoodDetail(foodDetail);
+        if (recipe !=null){
+            foodDetailContract.showFoodDetail(recipe);
         }else {
             obtainFoodDetail();
         }
@@ -41,14 +41,14 @@ public class FoodDetailPresenter implements FoodDetailContract.Presenter{
     private void obtainFoodDetail() {
         foodDetailContract.startLoading();
         ServiceGenerator.createService(FoodService.class).obtainFoodDetail(foodId)
-                .enqueue(new Callback<FoodDetail>() {
+                .enqueue(new Callback<Recipe>() {
                     @Override
-                    public void onResponse(Call<FoodDetail> call, Response<FoodDetail> response) {
+                    public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                         foodDetailContract.stopLoading();
                         if (response.isSuccessful()) {
-                            foodDetail = response.body();
-                            if (foodDetail != null)
-                                foodDetailContract.showFoodDetail(foodDetail);
+                            recipe = response.body();
+                            if (recipe != null)
+                                foodDetailContract.showFoodDetail(recipe);
                             else
                                 foodDetailContract.showApiError();
                         } else {
@@ -57,7 +57,7 @@ public class FoodDetailPresenter implements FoodDetailContract.Presenter{
                     }
 
                     @Override
-                    public void onFailure(Call<FoodDetail> call, Throwable t) {
+                    public void onFailure(Call<Recipe> call, Throwable t) {
                         foodDetailContract.stopLoading();
                         foodDetailContract.showConnectionError();
                     }

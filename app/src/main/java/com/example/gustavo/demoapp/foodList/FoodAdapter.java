@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.gustavo.demoapp.R;
-import com.example.gustavo.demoapp.foodDetail.FoodDetailActivity;
+import com.example.gustavo.demoapp.recipe.FoodDetailActivity;
 import com.example.gustavo.demoapp.views.CheckableImageView;
 
 import org.parceler.Parcels;
