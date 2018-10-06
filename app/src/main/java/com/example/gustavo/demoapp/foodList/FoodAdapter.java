@@ -16,7 +16,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.gustavo.demoapp.R;
-import com.example.gustavo.demoapp.recipe.FoodDetailActivity;
+import com.example.gustavo.demoapp.foodList.model.Food;
+import com.example.gustavo.demoapp.recipe.RecipeDetailActivity;
 import com.example.gustavo.demoapp.views.CheckableImageView;
 
 import org.parceler.Parcels;
@@ -42,10 +43,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         CardView cardView;
         @BindView(R.id.favorite)
         CheckableImageView checkBox;
-        @BindView(R.id.degrade)
-        View degrade;
+        @BindView(R.id.gradient)
+        View gradient;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -54,14 +55,14 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
     private List<Food> foodList;
     private Activity activity;
 
-    public FoodAdapter(List<Food> food, Activity activity) {
+    FoodAdapter(List<Food> food, Activity activity) {
         foodList = food;
         this.activity = activity;
     }
 
-
+    @NonNull
     @Override
-    public FoodAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View foodView = inflater.inflate(R.layout.card_item, parent, false);
@@ -78,22 +79,22 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder> {
         initializeCardView(viewHolder, food);
     }
 
+    @SuppressWarnings("unchecked")
     private void initializeCardView(@NonNull final ViewHolder viewHolder, final Food food) {
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), FoodDetailActivity.class);
+                Intent intent = new Intent(view.getContext(), RecipeDetailActivity.class);
                 intent.putExtra(Food.FOOD_KEY, Parcels.wrap(food));
 
                 Pair<View, String> p1 = Pair.create((View)viewHolder.imageView, "image");
-                Pair<View, String> p2 = Pair.create(viewHolder.degrade, "degrade");
+                Pair<View, String> p2 = Pair.create(viewHolder.gradient, "gradient");
 
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation(activity, p1, p2);
 
                 view.getContext().startActivity(intent, options.toBundle());
 //                todo remove clicked view from transition
-                //todo animate the gray bar and transition text
             }
         });
     }

@@ -42,11 +42,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
-                    android:id="@+id/degrade"
+                    android:id="@+id/gradient"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@drawable/degrade"
-                    android:transitionName="degrade"
+                    android:background="@drawable/gradient"
+                    android:transitionName="gradient"
                     android:layout_alignBottom="@+id/foodImage" />
             </RelativeLayout>
 
@@ -67,23 +67,31 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-            android:id="@+id/ingredientsContainer"
+            android:id="@+id/recipeInfoContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="16dp">
+            android:visibility="invisible"
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/ingredientTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:text="Ingredients"
                 android:textSize="20sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
 
+            <TextView
+                android:id="@+id/directionTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Directions"
+                android:textSize="20sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

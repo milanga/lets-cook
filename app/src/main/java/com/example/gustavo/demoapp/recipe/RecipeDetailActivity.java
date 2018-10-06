@@ -8,10 +8,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -20,16 +23,19 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.gustavo.demoapp.R;
+import com.example.gustavo.demoapp.recipe.model.Recipe;
 import com.example.gustavo.demoapp.recipe.presenter.FoodDetailContract;
 import com.example.gustavo.demoapp.recipe.presenter.FoodDetailPresenter;
-import com.example.gustavo.demoapp.foodList.Food;
+import com.example.gustavo.demoapp.foodList.model.Food;
 
 import org.parceler.Parcels;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FoodDetailActivity extends AppCompatActivity implements FoodDetailContract.View{
+public class RecipeDetailActivity extends AppCompatActivity implements FoodDetailContract.View{
 
     @BindView(R.id.foodImage)
     ImageView foodImage;
@@ -37,6 +43,8 @@ public class FoodDetailActivity extends AppCompatActivity implements FoodDetailC
     Toolbar toolbar;
     @BindView(R.id.favorite)
     FloatingActionButton favorite;
+    @BindView(R.id.recipeInfoContainer)
+    LinearLayout recipeInfoContainer;
 
     //used to add circular enter animation
     private Transition.TransitionListener enterTransitionListener;
@@ -56,7 +64,7 @@ public class FoodDetailActivity extends AppCompatActivity implements FoodDetailC
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.food_detail);
+        setContentView(R.layout.recipe_detail);
         ButterKnife.bind(this);
         //postpone the enter transition till glide load the image
         supportPostponeEnterTransition();
@@ -124,22 +132,29 @@ public class FoodDetailActivity extends AppCompatActivity implements FoodDetailC
     //view contract
 
     @Override
-    public void startLoading() {
-
-    }
-
-    @Override
-    public void stopLoading() {
-
-    }
-
-    @Override
     public void showConnectionError() {
 
     }
 
     @Override
-    public void showFoodDetail(Recipe recipe) {
+    public void showFoodRecipe(Recipe recipe) {
+        List<String> ingredientList = recipe.getIngredients();
+        for (String ingredient: ingredientList){
+            View ingredientItem = LayoutInflater.from(this).inflate(R.layout.ingredient_item, recipeInfoContainer, false);
+            ((TextView)ingredientItem.findViewById(R.id.ingredient)).setText(ingredient);
+            recipeInfoContainer.addView(ingredientItem, recipeInfoContainer.getChildCount()-1);
+        }
+
+        List<String> directionList = recipe.getDirections();
+        for (int i = 0; i<directionList.size(); i++){
+            View ingredientItem = LayoutInflater.from(this).inflate(R.layout.direction_item, recipeInfoContainer, false);
+            ((TextView)ingredientItem.findViewById(R.id.direction)).setText(directionList.get(i));
+            ((TextView)ingredientItem.findViewById(R.id.directionStep)).setText(String.valueOf(i+1));
+            recipeInfoContainer.addView(ingredientItem);
+        }
+
+        recipeInfoContainer.setVisibility(View.VISIBLE);
+        recipeInfoContainer.animate().alpha(1).start();
 
     }
 

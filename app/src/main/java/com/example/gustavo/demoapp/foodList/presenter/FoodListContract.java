@@ -1,6 +1,6 @@
 package com.example.gustavo.demoapp.foodList.presenter;
 
-import com.example.gustavo.demoapp.foodList.Food;
+import com.example.gustavo.demoapp.foodList.model.Food;
 
 import java.util.List;
 

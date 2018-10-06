@@ -2,7 +2,6 @@ package com.example.gustavo.demoapp.foodList;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.gustavo.demoapp.R;
+import com.example.gustavo.demoapp.foodList.model.Food;
 import com.example.gustavo.demoapp.foodList.presenter.FoodListContract;
 import com.example.gustavo.demoapp.foodList.presenter.FoodListPresenter;
 import com.example.gustavo.demoapp.recyclerViewDecoration.DoubleColumnSpaceDecoration;

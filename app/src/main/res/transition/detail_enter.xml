@@ -6,7 +6,7 @@
         android:duration="600"
         android:interpolator="@android:interpolator/decelerate_quint">
         <targets>
-            <target android:targetId="@+id/ingredientsContainer" />
+            <target android:targetId="@+id/recipeInfoContainer" />
         </targets>
     </slide>
     <fade

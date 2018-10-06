@@ -2,7 +2,7 @@ package com.example.gustavo.demoapp.foodList.presenter;
 
 import com.example.gustavo.demoapp.client.ServiceGenerator;
 import com.example.gustavo.demoapp.client.services.FoodService;
-import com.example.gustavo.demoapp.foodList.Food;
+import com.example.gustavo.demoapp.foodList.model.Food;
 
 import org.parceler.Parcel;
 import org.parceler.Transient;

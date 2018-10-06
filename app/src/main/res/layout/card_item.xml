@@ -28,11 +28,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:id="@+id/degrade"
+            android:id="@+id/gradient"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/degrade"
-            android:transitionName="degrade"
+            android:background="@drawable/gradient"
+            android:transitionName="gradient"
             app:layout_constraintBottom_toBottomOf="@+id/foodImage"
             app:layout_constraintEnd_toEndOf="@+id/foodImage"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,9 +61,9 @@
             android:clickable="true"
             android:focusable="true"
             android:tint="@color/checkbox_color"
-            app:layout_constraintBottom_toBottomOf="@+id/degrade"
+            app:layout_constraintBottom_toBottomOf="@+id/gradient"
             app:layout_constraintEnd_toStartOf="@+id/share"
-            app:layout_constraintTop_toTopOf="@+id/degrade" />
+            app:layout_constraintTop_toTopOf="@+id/gradient" />
 
         <ImageView
             android:id="@+id/share"

@@ -1,6 +1,6 @@
 package com.example.gustavo.demoapp.client.deserializers;
 
-import com.example.gustavo.demoapp.recipe.Recipe;
+import com.example.gustavo.demoapp.recipe.model.Recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

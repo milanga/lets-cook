@@ -2,8 +2,8 @@ package com.example.gustavo.demoapp.client;
 
 import com.example.gustavo.demoapp.client.deserializers.FoodDetailDeserializer;
 import com.example.gustavo.demoapp.client.deserializers.FoodListDeserializer;
-import com.example.gustavo.demoapp.recipe.Recipe;
-import com.example.gustavo.demoapp.foodList.Food;
+import com.example.gustavo.demoapp.recipe.model.Recipe;
+import com.example.gustavo.demoapp.foodList.model.Food;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

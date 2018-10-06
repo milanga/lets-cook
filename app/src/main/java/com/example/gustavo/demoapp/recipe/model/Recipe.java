@@ -1,4 +1,4 @@
-package com.example.gustavo.demoapp.recipe;
+package com.example.gustavo.demoapp.recipe.model;
 
 import org.parceler.Parcel;
 

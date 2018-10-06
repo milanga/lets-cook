@@ -1,7 +1,7 @@
 package com.example.gustavo.demoapp.client.services;
 
-import com.example.gustavo.demoapp.recipe.Recipe;
-import com.example.gustavo.demoapp.foodList.Food;
+import com.example.gustavo.demoapp.recipe.model.Recipe;
+import com.example.gustavo.demoapp.foodList.model.Food;
 
 import java.util.List;
 
