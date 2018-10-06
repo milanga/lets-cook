@@ -27,6 +27,8 @@ import com.example.gustavo.demoapp.recipe.model.Recipe;
 import com.example.gustavo.demoapp.recipe.presenter.FoodDetailContract;
 import com.example.gustavo.demoapp.recipe.presenter.FoodDetailPresenter;
 import com.example.gustavo.demoapp.foodList.model.Food;
+import com.example.gustavo.demoapp.views.CheckableFab;
+import com.example.gustavo.demoapp.views.CheckableImageView;
 
 import org.parceler.Parcels;
 
@@ -42,7 +44,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements FoodDetai
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.favorite)
-    FloatingActionButton favorite;
+    CheckableFab favorite;
     @BindView(R.id.recipeInfoContainer)
     LinearLayout recipeInfoContainer;
 
@@ -53,6 +55,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements FoodDetai
 
     private Food food;
     private FoodDetailPresenter foodDetailPresenter;
+    private boolean enterTransitionFinish = false;
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -88,6 +91,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements FoodDetai
         }
 
         loadImage(true);
+        favorite.setChecked(food.isFavorite());
         getSupportActionBar().setTitle(food.getName());
         foodDetailPresenter.start();
     }
@@ -137,30 +141,65 @@ public class RecipeDetailActivity extends AppCompatActivity implements FoodDetai
     }
 
     @Override
-    public void showFoodRecipe(Recipe recipe) {
-        List<String> ingredientList = recipe.getIngredients();
-        for (String ingredient: ingredientList){
-            View ingredientItem = LayoutInflater.from(this).inflate(R.layout.ingredient_item, recipeInfoContainer, false);
-            ((TextView)ingredientItem.findViewById(R.id.ingredient)).setText(ingredient);
-            recipeInfoContainer.addView(ingredientItem, recipeInfoContainer.getChildCount()-1);
+    public void showFoodRecipeAfterTransition(final Recipe recipe) {
+        if (enterTransitionFinish) {
+            showFoodRecipe(recipe);
+        }else{
+            getWindow().getEnterTransition().addListener(new Transition.TransitionListener() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    showFoodRecipe(recipe);
+                    getWindow().getEnterTransition().removeListener(this);
+                }
+
+                @Override
+                public void onTransitionCancel(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionPause(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionResume(Transition transition) {
+
+                }
+            });
         }
-
-        List<String> directionList = recipe.getDirections();
-        for (int i = 0; i<directionList.size(); i++){
-            View ingredientItem = LayoutInflater.from(this).inflate(R.layout.direction_item, recipeInfoContainer, false);
-            ((TextView)ingredientItem.findViewById(R.id.direction)).setText(directionList.get(i));
-            ((TextView)ingredientItem.findViewById(R.id.directionStep)).setText(String.valueOf(i+1));
-            recipeInfoContainer.addView(ingredientItem);
-        }
-
-        recipeInfoContainer.setVisibility(View.VISIBLE);
-        recipeInfoContainer.animate().alpha(1).start();
-
     }
 
     @Override
     public void showApiError() {
 
+    }
+
+
+    private void showFoodRecipe(Recipe recipe){
+        List<String> ingredientList = recipe.getIngredients();
+        for (String ingredient : ingredientList) {
+            View ingredientItem = LayoutInflater.from(this).inflate(R.layout.ingredient_item, recipeInfoContainer, false);
+            ((TextView) ingredientItem.findViewById(R.id.ingredient)).setText(ingredient);
+            recipeInfoContainer.addView(ingredientItem, recipeInfoContainer.getChildCount() - 1);
+        }
+
+        List<String> directionList = recipe.getDirections();
+        for (int i = 0; i < directionList.size(); i++) {
+            View ingredientItem = LayoutInflater.from(this).inflate(R.layout.direction_item, recipeInfoContainer, false);
+            ((TextView) ingredientItem.findViewById(R.id.direction)).setText(directionList.get(i));
+            ((TextView) ingredientItem.findViewById(R.id.directionStep)).setText(String.valueOf(i + 1));
+            recipeInfoContainer.addView(ingredientItem);
+        }
+
+        recipeInfoContainer.setVisibility(View.VISIBLE);
+        recipeInfoContainer.setAlpha(0);
+        recipeInfoContainer.animate().alpha(1).setDuration(500).start();
     }
 
 
@@ -177,6 +216,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements FoodDetai
                 if (foodImage.getDrawable()==null)
                     loadImage(false);
                 enterAnimation();
+                enterTransitionFinish = true;
             }
 
             @Override

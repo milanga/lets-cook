@@ -7,7 +7,7 @@ public interface FoodDetailContract {
 
         void showConnectionError();
 
-        void showFoodRecipe(Recipe recipe);
+        void showFoodRecipeAfterTransition(Recipe recipe);
 
         void showApiError();
     }

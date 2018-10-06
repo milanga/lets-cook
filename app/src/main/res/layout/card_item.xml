@@ -60,7 +60,7 @@
             android:saveEnabled="true"
             android:clickable="true"
             android:focusable="true"
-            android:tint="@color/checkbox_color"
+            android:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@+id/gradient"
             app:layout_constraintEnd_toStartOf="@+id/share"
             app:layout_constraintTop_toTopOf="@+id/gradient" />

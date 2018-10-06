@@ -32,7 +32,7 @@ public class FoodDetailPresenter implements FoodDetailContract.Presenter{
 
     public void start(){
         if (recipe !=null){
-            foodDetailContract.showFoodRecipe(recipe);
+            foodDetailContract.showFoodRecipeAfterTransition(recipe);
         }else {
             obtainFoodDetail();
         }
@@ -46,7 +46,7 @@ public class FoodDetailPresenter implements FoodDetailContract.Presenter{
                         if (response.isSuccessful()) {
                             recipe = response.body();
                             if (recipe != null)
-                                foodDetailContract.showFoodRecipe(recipe);
+                                foodDetailContract.showFoodRecipeAfterTransition(recipe);
                             else
                                 foodDetailContract.showApiError();
                         } else {
