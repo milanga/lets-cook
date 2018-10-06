@@ -19,7 +19,6 @@
 
     <style name="AppTheme.NoActionBar.Details">
         <item name="android:windowSharedElementEnterTransition">@transition/shared_transition</item>
-        <!--<item name="android:windowEnterTransition">@transition/detail_enter</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar.Home">
