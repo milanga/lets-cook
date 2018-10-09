@@ -95,9 +95,19 @@ public class RecipeDetailActivity extends AppCompatActivity implements FoodDetai
         }
 
         loadImage(true);
-        favorite.setChecked(food.isFavorite());
+        initializeFavorite();
         getSupportActionBar().setTitle(food.getName());
         foodDetailPresenter.start();
+    }
+
+    private void initializeFavorite() {
+        favorite.setChecked(food.isFavorite());
+        favorite.setOnCheckedChangeListener(new CheckableFab.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CheckableFab fabView, boolean isChecked) {
+                food.setFavorite(isChecked);
+            }
+        });
     }
 
     private void loadImage(boolean onlyRetrieveFromCache) {

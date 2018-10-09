@@ -64,4 +64,5 @@ public class FoodDetailPresenter implements FoodDetailContract.Presenter{
                     }
                 });
     }
+
 }
