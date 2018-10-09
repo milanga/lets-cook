@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +53,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements FoodDetai
     private Transition.TransitionListener enterTransitionListener;
 
     private final String PRESENTER_KEY = "presenter_key";
+    private final String TRANSITION_STATE_KEY = "transition_state_key";
 
     private Food food;
     private FoodDetailPresenter foodDetailPresenter;
@@ -61,6 +63,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements FoodDetai
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(PRESENTER_KEY, Parcels.wrap(foodDetailPresenter));
+        outState.putBoolean(TRANSITION_STATE_KEY, enterTransitionFinish);
         outState.putParcelable(Food.FOOD_KEY, Parcels.wrap(food));
     }
 
@@ -87,6 +90,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements FoodDetai
             food = Parcels.unwrap(savedInstanceState.getParcelable(Food.FOOD_KEY));
             foodDetailPresenter = Parcels.unwrap(savedInstanceState.getParcelable(PRESENTER_KEY));
             foodDetailPresenter.attach(this);
+            enterTransitionFinish = savedInstanceState.getBoolean(TRANSITION_STATE_KEY);
             favorite.setVisibility(View.VISIBLE);
         }
 
@@ -182,6 +186,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements FoodDetai
 
 
     private void showFoodRecipe(Recipe recipe){
+        Log.e("recipe", recipe.toString());
         List<String> ingredientList = recipe.getIngredients();
         for (String ingredient : ingredientList) {
             View ingredientItem = LayoutInflater.from(this).inflate(R.layout.ingredient_item, recipeInfoContainer, false);

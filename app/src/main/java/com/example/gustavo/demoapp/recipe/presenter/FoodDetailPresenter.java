@@ -1,5 +1,7 @@
 package com.example.gustavo.demoapp.recipe.presenter;
 
+import android.util.Log;
+
 import com.example.gustavo.demoapp.client.ServiceGenerator;
 import com.example.gustavo.demoapp.client.services.FoodService;
 import com.example.gustavo.demoapp.recipe.model.Recipe;
@@ -32,8 +34,10 @@ public class FoodDetailPresenter implements FoodDetailContract.Presenter{
 
     public void start(){
         if (recipe !=null){
+            Log.e("presenter", "recipe not null");
             foodDetailContract.showFoodRecipeAfterTransition(recipe);
         }else {
+            Log.e("presenter", "recipe null");
             obtainFoodDetail();
         }
     }
